@@ -30,6 +30,37 @@ row3 = st.columns(3)
 row4 = st.columns(3)
 row5 = st.columns(3)
 
+st.markdown("""
+    <style>
+        /* Change selectbox background and text color */
+        div[data-baseweb="select"] > div {
+            background-color: #D3D3D3;	 /* Light Red Background */
+            color: black; /* Black text */
+            border-radius: 5px;
+        }
+        
+        input[type=number] {
+            background-color: #D3D3D3 !important;  /* Light Blue Background */
+            color: black !important;  /* Text Color */
+            border-radius: 5px;
+            border: 2px solid #D3D3D3;  /* Dark Blue Border */
+            padding: 5px;
+            font-size: 16px;
+        }
+
+        /* Change the dropdown menu options */
+        div[data-baseweb="popover"] {
+            background-color: #90ee90 !important; /* Light Green */
+            color: black !important;
+        }
+
+        /* Change text inside the selectbox */
+        div[data-baseweb="select"] span {
+            color: black !important;
+        }
+    </style>
+""", unsafe_allow_html=True)
+
 
 # Assign inputs to the grid
 with row1[0]:

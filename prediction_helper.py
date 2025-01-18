@@ -1,8 +1,8 @@
 import pandas as pd
 import joblib
 
-best_model = joblib.load("artifacts\health_model.joblib")
-model_scaler = joblib.load("artifacts\health_scaler.joblib")
+best_model = joblib.load("artifacts/health_model.joblib")
+model_scaler = joblib.load("artifacts/health_scaler.joblib")
 
 def calculate_normalized_risk(medical_history):
     risk_scores = {
