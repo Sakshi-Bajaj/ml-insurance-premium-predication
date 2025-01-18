@@ -27,6 +27,22 @@ def calculate_normalized_risk(medical_history):
 
     return normalized_risk_score
 
+
+def calculate_lifestyle_risk_score(physical_activity, stress_level):
+        physical_activity_risk_score = {
+            "High": 0,
+            "Medium": 1,
+            "Low": 4
+        }
+        stress_risk_score = {
+            "High": 4,
+            "Medium": 1,
+            "Low": 0
+        }
+        life_style_risk = physical_activity_risk_score[physical_activity] + stress_risk_score[stress_level]
+        return life_style_risk
+
+
 def preprocess_input(input_dict):
     # Define the expected columns and initialize the DataFrame with zeros
     expected_columns = [
@@ -82,23 +98,17 @@ def preprocess_input(input_dict):
 
     # Assuming the 'normalized_risk_score' needs to be calculated based on the 'age'
     df['normalized_risk_score'] = calculate_normalized_risk(input_dict['Medical History'])
+    df['lifestyle_risk_score'] = calculate_lifestyle_risk_score(input_dict['Physical Activity'], input_dict['Stress Level'])
+
     df = handle_scaling(df)
-    print("+++++++++")
-    print(df.columns)
-    print("+++++++")
     return df
 
 def handle_scaling(df):
     # scale age and income_lakhs column
 
-    print(model_scaler)
     cols_to_scale = model_scaler['cols_to_scale']
     scaler = model_scaler['scaler']
 
-    print(cols_to_scale)
-
-    print(cols_to_scale)
-    df['lifestyle_risk_score'] = 0
     df['income_level'] = None # since scaler object expects income_level supply it. This will have no impact on anything
     df[cols_to_scale] = scaler.transform(df[cols_to_scale])
 
@@ -108,7 +118,5 @@ def handle_scaling(df):
 
 def predict(input_dict):
     input_df = preprocess_input(input_dict)
-
-    print(input_df)
     prediction = best_model.predict(input_df)
     return int(prediction[0])
